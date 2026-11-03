@@ -1,3 +1,4 @@
+
 name: Build and Release
 
 on:
@@ -19,10 +20,8 @@ jobs:
         include:
           - os: macos-latest
             artifact_name: RELAYLAB-X-macOS
-            file_extension: .zip
           - os: windows-latest
             artifact_name: RELAYLAB-X-Windows
-            file_extension: .zip
 
     steps:
       - name: Checkout code
@@ -51,26 +50,31 @@ jobs:
           cd software/desktop-app
           pyinstaller relaylab.spec
           cd dist
-          zip -r ../../RELAYLAB-X-macOS.zip "RELAYLAB X.app"
+          zip -r "$GITHUB_WORKSPACE/RELAYLAB-X-macOS.zip" "RELAYLAB X.app"
 
       - name: Build with PyInstaller (Windows)
         if: matrix.os == 'windows-latest'
+        shell: pwsh
         run: |
-          cd software/desktop-app
+          Set-Location software/desktop-app
           pyinstaller relaylab.spec
-          cd dist/RELAYLAB-X
-          powershell Compress-Archive -Path * -DestinationPath ../../../RELAYLAB-X-Windows.zip
+          Set-Location dist/RELAYLAB-X
+          Compress-Archive -Path * -DestinationPath "$env:GITHUB_WORKSPACE\RELAYLAB-X-Windows.zip" -Force
 
       - name: Upload macOS Artifact
         if: matrix.os == 'macos-latest'
         uses: actions/upload-artifact@v4
         with:
           name: RELAYLAB-X-macOS
-          path: RELAYLAB-X-macOS.zip
+          path: ${{ github.workspace }}/RELAYLAB-X-macOS.zip
+          if-no-files-found: error
+          retention-days: 30
 
       - name: Upload Windows Artifact
         if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v4
         with:
           name: RELAYLAB-X-Windows
-          path: RELAYLAB-X-Windows.zip
+          path: ${{ github.workspace }}/RELAYLAB-X-Windows.zip
+          if-no-files-found: error
+          retention-days: 30
