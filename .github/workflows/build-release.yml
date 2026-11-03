@@ -1,0 +1,76 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [ main, master ]
+    tags: ['v*']
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            artifact_name: RELAYLAB-X-macOS
+            file_extension: .zip
+          - os: windows-latest
+            artifact_name: RELAYLAB-X-Windows
+            file_extension: .zip
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+          pip install -r software/desktop-app/requirements.txt
+
+      - name: Run tests
+        run: |
+          cd software/desktop-app
+          python -m pytest tests/ -v
+
+      - name: Build with PyInstaller (macOS)
+        if: matrix.os == 'macos-latest'
+        run: |
+          cd software/desktop-app
+          pyinstaller relaylab.spec
+          cd dist
+          zip -r ../../RELAYLAB-X-macOS.zip "RELAYLAB X.app"
+
+      - name: Build with PyInstaller (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          cd software/desktop-app
+          pyinstaller relaylab.spec
+          cd dist/RELAYLAB-X
+          powershell Compress-Archive -Path * -DestinationPath ../../../RELAYLAB-X-Windows.zip
+
+      - name: Upload macOS Artifact
+        if: matrix.os == 'macos-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: RELAYLAB-X-macOS
+          path: RELAYLAB-X-macOS.zip
+
+      - name: Upload Windows Artifact
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: RELAYLAB-X-Windows
+          path: RELAYLAB-X-Windows.zip
