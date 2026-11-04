@@ -1,0 +1,39 @@
+REQ_ID,Phase,Category,Requirement,Source_Document,Source_Section,Subsystem,Implementation_File,Verification_Method,Status,Remaining_Work
+P2-HW-001,Phase 2,Hardware,"One single-phase voltage source, 0-400 V AC RMS",Master Prompt,§3.1.6,Voltage Output Stage,hardware/kicad/ (Sheet 07),Test: measured output voltage,Not started,Full design required
+P2-HW-002,Phase 2,Hardware,"One single-phase current source, 0-40 A AC RMS",Master Prompt,§3.1.6,Current Output Stage,hardware/kicad/ (Sheet 08),Test: measured output current,Not started,Full design required
+P2-HW-003,Phase 2,Hardware,Fixed 50 Hz operation,Master Prompt,§3.1.7,FPGA DDS / Signal Gen,hardware/kicad/ (Sheet 03),Test: frequency measurement,Not started,DDS design required
+P2-HW-004,Phase 2,Hardware,THD below 1% (design target),Master Prompt,§3.1.7,Output Filter,docs/phase2/calculations/,Test: THD measurement,Not started,Filter design and calc required
+P2-HW-005,Phase 2,Hardware,True RMS measurement,Master Prompt,§3.1.7,Measurement/Feedback,hardware/kicad/ (Sheet 05),Test: RMS accuracy verification,Not started,Sensor and ADC design required
+P2-HW-006,Phase 2,Hardware,Basic overcurrent protection,Master Prompt,§3.1.7,Protection,hardware/kicad/ (Sheet 09),Test: controlled OC trip test,Not started,Protection circuit design required
+P2-HW-007,Phase 2,Hardware,Basic short-circuit protection,Master Prompt,§3.1.7,Protection,hardware/kicad/ (Sheet 09),Test: controlled SC trip test,Not started,Protection circuit design required
+P2-HW-008,Phase 2,Hardware,STM32H753 controller circuit,Master Prompt,§9,Controller,hardware/kicad/ (Sheet 02),Test: controller power-up and programming,Not started,Full MCU schematic required
+P2-HW-009,Phase 2,Hardware,FPGA configuration and interface,Master Prompt,§10,FPGA DDS,hardware/kicad/ (Sheet 03),Test: FPGA configuration verification,Not started,FPGA schematic required
+P2-HW-010,Phase 2,Hardware,DAC8568 output circuit,Master Prompt,§11,DAC,hardware/kicad/ (Sheet 04),Test: DAC output voltage verification,Not started,DAC schematic required
+P2-HW-011,Phase 2,Hardware,AD7606C-18 feedback circuit,Master Prompt,§12,ADC,hardware/kicad/ (Sheet 05),Test: ADC input verification,Not started,ADC schematic required
+P2-HW-012,Phase 2,Hardware,Emergency stop circuit,Master Prompt,§16,Protection,hardware/kicad/ (Sheet 09),Test: E-stop verification,Not started,E-stop circuit design required
+P2-HW-013,Phase 2,Hardware,Power supply (24V input to all rails),Master Prompt,§17,Power,hardware/kicad/ (Sheet 06),Test: power-up sequence verification,Not started,Power tree design required
+P2-HW-014,Phase 2,Hardware,Voltage feedback path (sensing),Master Prompt,§15,Measurement,hardware/kicad/ (Sheet 05),Test: voltage feedback accuracy,Not started,Sensor circuit design required
+P2-HW-015,Phase 2,Hardware,Current feedback path (shunt + amplifier),Master Prompt,§15,Measurement,hardware/kicad/ (Sheet 05),Test: current feedback accuracy,Not started,Shunt amplifier design required
+P2-SW-001,Phase 2,Software,Single-phase voltage control interface,Master Prompt,§3.2.3,PC Software,software/desktop-app/app/ui/pages/test_config.py,Test: UI control verification,Partial,Extend for hardware mode
+P2-SW-002,Phase 2,Software,Communication drivers (USB CDC),Master Prompt,§3.2.4,PC Software,software/desktop-app/app/communication/,Test: USB loopback,Not started,Protocol redesign required
+P2-SW-003,Phase 2,Software,Real-time waveform visualization,Master Prompt,§3.2.5,PC Software,software/desktop-app/app/ui/oscilloscope.py,Test: live waveform rendering,Complete (simulation),Connect to hardware data
+P2-SW-004,Phase 2,Software,Hardware/software integration,Master Prompt,§3.2.6,PC Software,software/desktop-app/,Test: end-to-end data streaming,Not started,Requires firmware + protocol
+P2-SW-005,Phase 2,Software,Live waveform rendering via loopback,Master Prompt,§3.3,PC Software,software/desktop-app/,Test: loopback demonstration,Not started,Requires communication protocol
+P2-FW-001,Phase 2,Firmware,STM32 peripheral initialization,Master Prompt,§20,Firmware,firmware/stm32h753/,Test: peripheral verification,Not started,Full firmware required
+P2-FW-002,Phase 2,Firmware,FPGA communication (SPI),Master Prompt,§20,Firmware,firmware/stm32h753/,Test: SPI loopback,Not started,Interface design required
+P2-FW-003,Phase 2,Firmware,DAC control,Master Prompt,§20,Firmware,firmware/stm32h753/,Test: DAC output verification,Not started,SPI command implementation
+P2-FW-004,Phase 2,Firmware,ADC acquisition,Master Prompt,§20,Firmware,firmware/stm32h753/,Test: ADC readback verification,Not started,DMA + sampling implementation
+P2-FW-005,Phase 2,Firmware,USB CDC communication,Master Prompt,§20,Firmware,firmware/stm32h753/,Test: USB enumeration and loopback,Not started,USB middleware required
+P2-FW-006,Phase 2,Firmware,RMS calculation (firmware),Master Prompt,§20,Firmware,firmware/stm32h753/,Test: RMS accuracy comparison,Not started,Algorithm implementation
+P2-FW-007,Phase 2,Firmware,Fault reporting to PC,Master Prompt,§20,Firmware,firmware/stm32h753/,Test: fault message reception,Not started,Protocol implementation
+P2-FW-008,Phase 2,Firmware,Safety interlock monitoring,Master Prompt,§20,Firmware,firmware/stm32h753/,Test: fault response timing,Not started,GPIO + interrupt design
+P2-DOC-001,Phase 2,Documentation,Communication protocol specification,Master Prompt,§22,Documentation,docs/phase2/COMMUNICATION_PROTOCOL.md,Review: protocol completeness,Not started,Full specification required
+P2-DOC-002,Phase 2,Documentation,Engineering calculations package,Master Prompt,§23,Documentation,docs/phase2/calculations/,Review: calculation correctness,Not started,All calculations required
+P2-DOC-003,Phase 2,Documentation,Test and validation plan,Master Prompt,§24,Documentation,docs/phase2/validation/,Review: test coverage,Not started,Full plan required
+P2-DOC-004,Phase 2,Documentation,Verified BOM,Master Prompt,§26.5,Documentation,hardware/bom/,Review: BOM vs schematic,Not started,Component verification required
+P2-DOC-005,Phase 2,Documentation,Pin-mapping spreadsheet,Master Prompt,§26.8,Documentation,hardware/documentation/STM32_PIN_MAPPING.md,Review: pin vs datasheet,Not started,Full mapping required
+FP-001,Final Product,Hardware,4 independent voltage channels,Master Prompt,§2,Voltage Stage,-,Test,-,Phase 3+
+FP-002,Final Product,Hardware,4 independent current channels,Master Prompt,§2,Current Stage,-,Test,-,Phase 3+
+FP-003,Final Product,Hardware,Phase angle 0-360°,Master Prompt,§2,Signal Generation,-,Test,-,Phase 3+
+FP-004,Final Product,Hardware,Frequency 10 Hz - 1 kHz,Master Prompt,§2,Signal Generation,-,Test,-,Phase 3+
+FP-005,Final Product,Hardware,Relay trip monitoring,Master Prompt,§2,Protection,-,Test,-,Phase 3+

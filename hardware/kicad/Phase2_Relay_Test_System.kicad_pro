@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "version": "0.1",
+    "project": "RELAYLAB X Phase 2",
+    "date": "2026-11-05"
+  },
+  "sheets": [
+    "Phase2_Relay_Test_System.kicad_sch",
+    "stm32_controller.kicad_sch",
+    "fpga_dds.kicad_sch",
+    "dac_interface.kicad_sch",
+    "adc_feedback.kicad_sch",
+    "digital_isolation.kicad_sch",
+    "power_distribution.kicad_sch",
+    "connectors.kicad_sch"
+  ],
+  "libraries": {
+    "symbols": [],
+    "footprints": []
+  }
+}
